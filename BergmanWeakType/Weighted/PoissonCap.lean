@@ -229,4 +229,37 @@ theorem circleAverage_smoothCap_antitone_of_poisson_supermean
   apply poissonExtension_smoothCap_le hε _ hz (hsuper z hz)
   simpa only [abs_of_nonneg (hr.trans hrR.le)] using hv.mono sphere_subset_closedBall
 
+theorem circleAverage_smoothCap_bounds {ε c r : ℝ} {v : ℂ → ℝ} (hε : 0 < ε)
+    (hv : ContinuousOn v (sphere 0 |r|)) :
+    circleAverage (fun z ↦ min (v z) c) 0 r ≤
+        circleAverage (fun z ↦ smoothCap ε c (v z)) 0 r ∧
+      circleAverage (fun z ↦ smoothCap ε c (v z)) 0 r ≤
+        circleAverage (fun z ↦ min (v z) c) 0 r + ε / 2 := by
+  have hφ : Continuous (smoothCap ε c) :=
+    continuous_iff_continuousAt.mpr fun _ ↦ (hasDerivAt_smoothCap_input hε).continuousAt
+  have hmin := (hv.inf (continuousOn_const (c := c))).circleIntegrable'
+  have hcap := (hφ.comp_continuousOn hv).circleIntegrable'
+  constructor
+  · exact circleAverage_mono hmin hcap fun _ _ ↦ min_le_smoothCap hε.le
+  · have hi := circleAverage_mono hcap (hmin.add (circleIntegrable_const (ε / 2) 0 r))
+      (fun z _ ↦ smoothCap_le_min_add (ε := ε) (c := c) (x := v z))
+    simpa only [circleAverage_add hmin (circleIntegrable_const (ε / 2) 0 r),
+      circleAverage_const, Function.comp_def] using hi
+
+/-- Uniform approximation transfers decrease of smooth truncated means to exact truncation. -/
+theorem circleAverage_min_le_of_smoothCap_le {r R c : ℝ} {v : ℂ → ℝ}
+    (hr : ContinuousOn v (sphere 0 |r|)) (hR : ContinuousOn v (sphere 0 |R|))
+    (hsmooth : ∀ ε : ℝ, 0 < ε →
+      circleAverage (fun z ↦ smoothCap ε c (v z)) 0 R ≤
+        circleAverage (fun z ↦ smoothCap ε c (v z)) 0 r) :
+    circleAverage (fun z ↦ min (v z) c) 0 R ≤
+      circleAverage (fun z ↦ min (v z) c) 0 r := by
+  apply le_of_forall_pos_le_add
+  intro δ hδ
+  have hε : 0 < 2 * δ := mul_pos (by norm_num) hδ
+  have hupper := (circleAverage_smoothCap_bounds (c := c) hε hr).2
+  have hlower := (circleAverage_smoothCap_bounds (c := c) hε hR).1
+  have hmono := hsmooth (2 * δ) hε
+  linarith
+
 end BergmanWeakType

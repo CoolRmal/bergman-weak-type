@@ -9,7 +9,6 @@ public import BergmanWeakType
 
 /-! # Completed proof development
 
-The sharp disk constants and `one_le_weightedProjection_constant` are implemented.
-The other four declarations listed in comparator.json are not implemented yet.
-The comparator must reject the missing declarations; this is not a completed submission.
+All seven declarations listed in comparator.json are implemented with the exact Challenge
+statements. The proofs use only the permitted standard Lean axioms.
 -/

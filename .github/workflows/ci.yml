@@ -35,17 +35,9 @@ jobs:
         run: lake build BergmanWeakType
 
   comparator:
-    name: Compare ${{ matrix.scope }}
+    name: Compare all seven theorems and check independent kernels
     runs-on: ubuntu-24.04
     timeout-minutes: 60
-    strategy:
-      fail-fast: false
-      matrix:
-        include:
-          - scope: all seven advertised theorems
-            config: comparator.json
-          - scope: the three completed theorems
-            config: comparator.completed.json
     steps:
       - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1
         with:
@@ -64,6 +56,5 @@ jobs:
           sudo apt-get install -y -qq bubblewrap >/dev/null
           sudo sysctl -w kernel.apparmor_restrict_unprivileged_userns=0
       - name: Compare the actual Challenge and Solution
-        # This must fail while any advertised main proof is absent or uses a
-        # forbidden axiom. A development build is not proof completion.
-        run: ./scripts/verify-comparator.sh '${{ matrix.config }}'
+        # A development build alone does not certify statement fidelity or the independent kernels.
+        run: ./scripts/verify-comparator.sh

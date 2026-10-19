@@ -35,8 +35,9 @@ theorem lintegral_image_eq_lintegral_norm_deriv_sq {U : Set ℂ} {φ : ℂ → �
         |>.restrictScalars ℝ).hasFDerivWithinAt) hinj g
 
 /-- Change of variables for complex integrals under a holomorphic injection. -/
-theorem integral_image_eq_integral_norm_deriv_sq {U : Set ℂ} {φ : ℂ → ℂ}
-    (hU : IsOpen U) (hφ : DifferentiableOn ℂ φ U) (hinj : InjOn φ U) (g : ℂ → ℂ) :
+theorem integral_image_eq_integral_norm_deriv_sq {E : Type*} [NormedAddCommGroup E]
+    [NormedSpace ℝ E] {U : Set ℂ} {φ : ℂ → ℂ}
+    (hU : IsOpen U) (hφ : DifferentiableOn ℂ φ U) (hinj : InjOn φ U) (g : ℂ → E) :
     ∫ z in φ '' U, g z = ∫ w in U, (‖deriv φ w‖ ^ 2 : ℝ) • g (φ w) := by
   simpa only [det_complex_derivative, abs_sq] using
     integral_image_eq_integral_abs_det_fderiv_smul volume hU.measurableSet
@@ -62,8 +63,9 @@ theorem area_lintegral_image_eq {U : Set ℂ} {φ : ℂ → ℂ}
   rw [lintegral_image_eq_lintegral_norm_deriv_sq hU hφ hinj]
 
 /-- The normalized-area version of holomorphic change of variables for complex integrals. -/
-theorem area_integral_image_eq {U : Set ℂ} {φ : ℂ → ℂ}
-    (hU : IsOpen U) (hφ : DifferentiableOn ℂ φ U) (hinj : InjOn φ U) (g : ℂ → ℂ) :
+theorem area_integral_image_eq {E : Type*} [NormedAddCommGroup E]
+    [NormedSpace ℝ E] {U : Set ℂ} {φ : ℂ → ℂ}
+    (hU : IsOpen U) (hφ : DifferentiableOn ℂ φ U) (hinj : InjOn φ U) (g : ℂ → E) :
     ∫ z in φ '' U, g z ∂area = ∫ w in U, (‖deriv φ w‖ ^ 2 : ℝ) • g (φ w) ∂area := by
   simp only [area, Measure.restrict_smul, integral_smul_measure]
   rw [integral_image_eq_integral_norm_deriv_sq hU hφ hinj]

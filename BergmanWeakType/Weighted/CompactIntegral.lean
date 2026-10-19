@@ -33,12 +33,14 @@ theorem integrable_mul_of_continuousOn_compact {X : Type*} [TopologicalSpace X]
   apply hf.bdd_mul hm
   exact hμ.mono fun w hw ↦ hM (mem_image_of_mem _ hw)
 
-theorem continuousOn_integral_mul_of_compact {μ : Measure ℂ} {K S : Set ℂ}
+theorem continuousOn_integral_mul_of_compact {X Y : Type*} [TopologicalSpace X]
+    [T2Space X] [MeasurableSpace X] [OpensMeasurableSpace X]
+    [TopologicalSpace Y] [FirstCountableTopology Y] {μ : Measure X} {K : Set X} {S : Set Y}
     (hK : IsCompact K) (hμ : ∀ᵐ w ∂μ, w ∈ K) (hS : IsCompact S)
-    {f : ℂ → ℝ} (hf : Integrable f μ) {F : ℂ → ℂ → ℝ}
-    (hF : ContinuousOn (fun p : ℂ × ℂ ↦ F p.1 p.2) (S ×ˢ K)) :
+    {f : X → ℝ} (hf : Integrable f μ) {F : Y → X → ℝ}
+    (hF : ContinuousOn (fun p : Y × X ↦ F p.1 p.2) (S ×ˢ K)) :
     ContinuousOn (fun z ↦ ∫ w, F z w * f w ∂μ) S := by
-  have hslice {z : ℂ} (hz : z ∈ S) : ContinuousOn (F z) K :=
+  have hslice {z : Y} (hz : z ∈ S) : ContinuousOn (F z) K :=
     hF.comp (continuous_const.prodMk continuous_id).continuousOn fun w hw ↦ ⟨hz, hw⟩
   obtain ⟨M, hM⟩ := (hS.prod hK).bddAbove_image hF.norm
   apply continuousOn_of_dominated (bound := fun w ↦ M * ‖f w‖)
@@ -47,25 +49,27 @@ theorem continuousOn_integral_mul_of_compact {μ : Measure ℂ} {K S : Set ℂ}
     (hμ.mono fun w hw ↦ ?_)
   · rw [norm_mul]
     exact mul_le_mul_of_nonneg_right
-      (hM (mem_image_of_mem (fun p : ℂ × ℂ ↦ ‖F p.1 p.2‖)
+      (hM (mem_image_of_mem (fun p : Y × X ↦ ‖F p.1 p.2‖)
         (show (z, w) ∈ S ×ˢ K from ⟨hz, hw⟩))) (norm_nonneg _)
   · exact (hF.comp (continuous_id.prodMk continuous_const).continuousOn
       (fun z hz ↦ ⟨hz, hw⟩)).mul_const _
 
 /-- Continuous kernel derivatives on a compact parameter cylinder can be integrated against any
 integrable density. Compactness supplies the common domination needed by differentiation. -/
-theorem hasDerivAt_integral_mul_of_continuousOn_compact {μ : Measure ℂ} {K : Set ℂ}
+theorem hasDerivAt_integral_mul_of_continuousOn_compact {X : Type*} [TopologicalSpace X]
+    [T2Space X] [MeasurableSpace X] [OpensMeasurableSpace X]
+    {μ : Measure X} {K : Set X}
     (hK : IsCompact K) (hμ : ∀ᵐ w ∂μ, w ∈ K) {S : Set ℝ}
-    (hS : IsCompact S) {x : ℝ} (hSx : S ∈ nhds x) {f : ℂ → ℝ}
-    (hf : Integrable f μ) {F F' : ℝ → ℂ → ℝ}
-    (hF : ContinuousOn (fun p : ℝ × ℂ ↦ F p.1 p.2) (S ×ˢ K))
-    (hF' : ContinuousOn (fun p : ℝ × ℂ ↦ F' p.1 p.2) (S ×ˢ K))
+    (hS : IsCompact S) {x : ℝ} (hSx : S ∈ nhds x) {f : X → ℝ}
+    (hf : Integrable f μ) {F F' : ℝ → X → ℝ}
+    (hF : ContinuousOn (fun p : ℝ × X ↦ F p.1 p.2) (S ×ˢ K))
+    (hF' : ContinuousOn (fun p : ℝ × X ↦ F' p.1 p.2) (S ×ˢ K))
     (hderiv : ∀ w ∈ K, ∀ u ∈ S, HasDerivAt (fun v ↦ F v w) (F' u w) u) :
     Integrable (fun w ↦ F' x w * f w) μ ∧
       HasDerivAt (fun u ↦ ∫ w, F u w * f w ∂μ) (∫ w, F' x w * f w ∂μ) x := by
   have hx : x ∈ S := mem_of_mem_nhds hSx
-  have hslice {G : ℝ → ℂ → ℝ}
-      (hG : ContinuousOn (fun p : ℝ × ℂ ↦ G p.1 p.2) (S ×ˢ K))
+  have hslice {G : ℝ → X → ℝ}
+      (hG : ContinuousOn (fun p : ℝ × X ↦ G p.1 p.2) (S ×ˢ K))
       {u : ℝ} (hu : u ∈ S) : ContinuousOn (G u) K := by
     exact hG.comp (continuous_const.prodMk continuous_id).continuousOn fun w hw ↦ ⟨hu, hw⟩
   obtain ⟨M, hM⟩ := (hS.prod hK).bddAbove_image hF'.norm
@@ -79,7 +83,7 @@ theorem hasDerivAt_integral_mul_of_continuousOn_compact {μ : Measure ℂ} {K : 
   · exact hμ.mono fun w hw u hu ↦ by
       rw [norm_mul]
       exact mul_le_mul_of_nonneg_right
-        (hM (mem_image_of_mem (fun p : ℝ × ℂ ↦ ‖F' p.1 p.2‖)
+        (hM (mem_image_of_mem (fun p : ℝ × X ↦ ‖F' p.1 p.2‖)
           (show (u, w) ∈ S ×ˢ K from ⟨hu, hw⟩))) (norm_nonneg _)
   · exact hμ.mono fun w hw u hu ↦ (hderiv w hw u hu).mul_const (f w)
 

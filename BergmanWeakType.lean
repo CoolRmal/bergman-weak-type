@@ -12,6 +12,8 @@ public import BergmanWeakType.Comparison
 public import BergmanWeakType.CompactGap
 public import BergmanWeakType.Reproduction
 public import BergmanWeakType.DiskSharp
+public import BergmanWeakType.WeightedSharp
+public import BergmanWeakType.Boundary.Sharpness
 public import BergmanWeakType.Weighted.MovingCap
 public import BergmanWeakType.Weighted.SmoothCap
 public import BergmanWeakType.Weighted.PoissonCap
@@ -21,3 +23,6 @@ public import BergmanWeakType.Weighted.BetaIntegral
 public import BergmanWeakType.Weighted.NormalizerEndpoint
 public import BergmanWeakType.Rigidity.AnalyticInverse
 public import BergmanWeakType.Rigidity.ChangeOfVariables
+public import BergmanWeakType.Rigidity.DomainGap
+public import BergmanWeakType.Rigidity.Perturbation
+public import BergmanWeakType.Rigidity.BoundedRigidity

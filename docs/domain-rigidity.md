@@ -328,9 +328,43 @@ Letting that parameter decrease to zero proves the lower bound one. Thus an unre
 
 The compact-interior-set proof depends on the Riemann mapping theorem; the normalized Bergman kernel on the disk; its transformation law; the reproducing property for constants; square integrability of kernel sections; conformal change of variables; equality in the complex integral triangle inequality; continuity under a uniformly dominated integral; the open mapping and identity theorems; compactness of the closed disk; and the sharp positive disk endpoint theorem. A proof using a conformally defined kernel can start with the explicit displayed formula, but identifying that object with the actual Bergman projection still requires the reproduction or orthogonal-projection bridge. These dependencies must be proved or imported as established mathlib results, not introduced as unproved analytic assumptions in a claimed complete formalization.
 
-There is a concrete library gap at the pinned Lean release-candidate version: mathlib's `Mathlib/Analysis/Complex/RiemannMapping.lean` describes itself as containing partial results towards the Riemann mapping theorem. Its proved embedding statements do not supply a conformal bijection onto the disk. The file points to [mathlib pull request 33505](https://github.com/leanprover-community/mathlib4/pull/33505) for a complete proof and warns that the external proof may need updating. That pull request has not been imported into this project. A checked full Riemann mapping theorem, the exact conformal kernel construction and transformation law, and the identification with the standard Bergman reproducing kernel remain formalization milestones. The `IsBergmanKernel` definition records the usual holomorphic, Hermitian, square-integrable reproducing-kernel properties; it does not by itself prove existence of such a kernel.
+The bounded-domain theorem is now fully checked in
+[`BoundedRigidity.lean`](../BergmanWeakType/Rigidity/BoundedRigidity.lean), as
+`BergmanWeakType.positive_constant_eq_one_iff_disk`. Its statement uses the standard
+`IsBergmanKernel` characterization and imposes no boundary regularity or conformal derivative
+bounds. The stronger finite-area extension and the half-plane discussion in this note are
+informal arguments; the implemented theorem assumes boundedness.
 
-The checked preliminary results currently isolate three smaller steps: the constant-input lower bound for a kernel satisfying those standard properties; the measure-theoretic implication from a smaller-mass input with output at least one to a weak constant greater than one; and the uniform relative gap for continuous functions on a compact parameter set. These results do not yet construct the strict Bergman witness or prove the disk characterization.
+At the pinned mathlib version, `Mathlib/Analysis/Complex/RiemannMapping.lean` only supplies partial
+results. This project ports the complete proof from
+[mathlib pull request 33505](https://github.com/leanprover-community/mathlib4/pull/33505), commit
+`d43061d911b1aeae0788591da437a3b115098962`, retaining Yury Kudryashov's authorship and Apache 2.0
+license. The adapted [`RiemannMapping.lean`](../BergmanWeakType/Rigidity/RiemannMapping.lean) and
+[`UnitDiscShift.lean`](../BergmanWeakType/Rigidity/UnitDiscShift.lean) compile against the project's
+pinned Lean and mathlib versions. The full theorem is proved locally, with no additional axioms.
+
+The remaining bridges are also checked:
+
+- [`DiskReproducing.lean`](../BergmanWeakType/Rigidity/DiskReproducing.lean) proves disk reproduction
+  for holomorphic integrable inputs and verifies the standard disk kernel characterization.
+- [`KernelTransform.lean`](../BergmanWeakType/Rigidity/KernelTransform.lean) proves uniqueness,
+  conformal covariance, and existence of the standard kernel on every proper simply connected
+  open planar domain.
+- [`PhaseRigidity.lean`](../BergmanWeakType/Rigidity/PhaseRigidity.lean) and
+  [`MobiusGeometry.lean`](../BergmanWeakType/Rigidity/MobiusGeometry.lean) prove the equality phase
+  identity, integrate the derivative, classify the interior image as a disk, and exclude boundary
+  parameters by unboundedness.
+- [`CoreGap.lean`](../BergmanWeakType/Rigidity/CoreGap.lean) and
+  [`DomainGap.lean`](../BergmanWeakType/Rigidity/DomainGap.lean) establish the uniform cancellation
+  gap on a positive-area interior set of every bounded simply connected nondisk.
+- [`Perturbation.lean`](../BergmanWeakType/Rigidity/Perturbation.lean) constructs an integrable input
+  of smaller mass with positive output at least one, proving strictness of the weak constant.
+- [`DiskSimilarity.lean`](../BergmanWeakType/Rigidity/DiskSimilarity.lean) transfers the sharp disk
+  estimate to arbitrary centers and positive radii.
+
+The final theorem's axiom audit contains only `propext`, `Classical.choice`, and `Quot.sound`.
+This is a proof and axiom check; comparator verification is recorded separately in the project
+status and CI results.
 
 The derivative-free compact-interior-set argument was recovered from the project chat titled “Prove Bergman kernel minimum bound”, dated October 16, 2026. The earlier project note titled “Positive Bergman weak norm rigidity and its antecedents” proved the result only with upper and lower conformal derivative bounds. The argument recorded here checks the phase calculation explicitly and strengthens the bounded-domain statement to finite-area simply connected domains: the excluded boundary equality case is a half-plane and therefore has infinite area. The half-plane discussion gives a self-contained proof of the scope obstruction using the project's sharp disk endpoint result. No private chat transcript is included.
 

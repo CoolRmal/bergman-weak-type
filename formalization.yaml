@@ -4,14 +4,14 @@ version: v0.4
 project:
   name: Bergman projection weak type constants
   description: >-
-    An in-progress Lean development of weak type (1,1) constants for the Bergman
-    projection and its positive-kernel counterpart on the unit disk. The planned
+    A Lean formalization of weak type (1,1) constants for the Bergman
+    projection and its positive-kernel counterpart on the unit disk. The proved
     results are the sharp unweighted constants, weighted positive-kernel constants,
     and upper and lower weighted bounds for the complex projection. A further
-    target characterizes Euclidean disks among bounded simply connected open
+    theorem characterizes Euclidean disks among bounded simply connected open
     regions using their reproducing Bergman kernels, without boundary regularity
-    assumptions. Both sharp disk constants and the universal complex weighted
-    lower bound one are proved; the other four main comparison targets remain unproved.
+    assumptions. All seven main comparison targets are proved using only the
+    standard permitted Lean axioms.
   authors: [Yongxi Lin]
   responsible_maintainers: [Yongxi Lin]
   license: Apache-2.0
@@ -19,6 +19,15 @@ project:
 classification:
   arxiv: [math.CV, math.FA]
   msc2020: [30H20, 42B35, 47B38]
+
+related_formalizations:
+  - id: https://github.com/leanprover-community/mathlib4/pull/33505
+    relationship: adapts
+    note: >-
+      Ports Yury Kudryashov's Riemann mapping theorem and unit-disk shifts from
+      commit d43061d911b1aeae0788591da437a3b115098962 to the pinned Lean and mathlib
+      versions as supporting results. Original authorship and Apache-2.0 notices
+      are retained.
 
 sources:
   - title: Research notes on sharp and weighted Bergman weak type estimates
@@ -29,7 +38,7 @@ sources:
     note: >-
       Unpublished research supplied with the project, summarized in the cited file.
       This records the supplied proof program, not a claim of mathematical novelty
-      or independent validation. Its principal claims are not yet proved in Lean.
+      or independent validation. All seven main targets are proved in Lean.
   - title: Domain rigidity questions for the positive Bergman operator
     type: other
     relationship: other
@@ -39,31 +48,36 @@ sources:
       The domain target uses the corrected bounded simply connected scope and
       characterizes arbitrary Euclidean disks. Its kernel is specified by the
       usual holomorphic, square-integrability, symmetry, and reproducing
-      properties. No rigidity proof is claimed.
+      properties. Existence, identification, and the full bounded-domain rigidity
+      proof are formalized.
 
 status:
-  proof_status: in_progress
+  proof_status: complete
   scope: >-
-    Both sharp disk constants and the universal complex weighted lower bound one are
-    proved, the latter for every alpha greater than -1 using interior concentration.
-    Four of the seven advertised comparison
-    targets remain unproved. The intended weight
-    range is alpha greater than -1; the additional complex boundary lower bound
-    is intended for alpha at least zero. The domain characterization is restricted
+    Both sharp disk constants, the positive weighted constant, and all stated complex
+    weighted upper and lower bounds are proved. The domain characterization is also
+    proved. The weight range is alpha greater than -1; the additional complex
+    boundary lower bound is proved for alpha at least zero. The domain theorem is restricted
     to bounded simply connected open regions, with an actual reproducing Bergman
-    kernel and no boundary regularity assumption. No successful comparator run, complete Palomar mechanical
-    preflight, editorial review, or registration is claimed.
+    kernel and no boundary regularity assumption. The earlier three-result subset passed
+    the comparator and independent kernels at commit 061dc8796e789fa4c716c994cbadfce716d4e470.
+    No successful full comparator, Palomar mechanical preflight, editorial review,
+    or registration is claimed.
   sorry_count: 0
   sorry_in_definitions: 0
   axioms: []
   completed_main_results:
     - BergmanWeakType.projection_constant_eq_one
     - BergmanWeakType.positiveProjection_constant_eq_one
+    - BergmanWeakType.weightedPositiveProjection_constant_eq
     - BergmanWeakType.one_le_weightedProjection_constant
+    - BergmanWeakType.weightedProjection_constant_le
+    - BergmanWeakType.boundaryConstant_le_weightedProjection_constant
+    - BergmanWeakType.positive_constant_eq_one_iff_disk
   note: >-
     These proof-hole counts exclude the deliberate statement holes in
-    Challenge.lean. Zero holes in the supporting development does not mean the
-    absent main proofs have been completed. The axiom list records custom axioms;
+    Challenge.lean. Main statement completion is recorded separately in the list
+    above and checked by the comparator. The axiom list records custom axioms;
     ordinary Lean axioms permitted by comparator.json are listed there.
 
 automation:
@@ -82,14 +96,15 @@ automation:
 
 fidelity:
   divergences: >-
-    This is an incomplete formalization. Apart from the universal complex weighted
-    lower bound one, the sharp and weighted claims and the bounded-domain
-    characterization remain unproved. The domain conclusion
-    concerns arbitrary Euclidean disks, accounting for translation and scaling.
+    The domain conclusion concerns arbitrary Euclidean disks, accounting for translation
+    and scaling. Its boundedness restriction is required and was explicitly requested.
+    The weighted results concern standard radial weights; no arbitrary-weight theorem
+    or exact complex weighted constant for general nonzero parameters is asserted.
 
 review:
   status: agent-reviewed
   notes: >-
     Initial source and statement audits led to the bounded simply connected scope
-    for the domain characterization. No independent mathematical peer review, completed
-    main-theorem verification, or Palomar review is claimed.
+    for the domain characterization. Three main results passed comparator verification
+    at the earlier public milestone. No independent mathematical peer review,
+    full-project verification, or Palomar review is claimed.

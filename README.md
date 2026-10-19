@@ -2,11 +2,11 @@
 
 A Lean 4 project, dependent on mathlib, for sharp weak type estimates of Bergman projections.
 
-**Work in progress. Three of the seven main statements are proved: both sharp disk constants
-and the universal complex weighted lower bound one. The other four remain unproved. The project
-has not passed the full comparator and is
-not registered on Palomar.** The checked library also contains foundational results;
-a successful library build is not completion of the statements in `Challenge.lean`.
+**All seven main statements are proved in Lean:** both sharp disk constants, the sharp positive
+weighted constant, all stated complex weighted upper and lower bounds, and the characterization
+of disks among bounded simply connected domains. The proofs use only the standard permitted
+Lean axioms. Full comparator verification of this final development is pending; the project is
+not registered on Palomar.
 
 ## Mathematical targets
 
@@ -71,8 +71,8 @@ The requested targets, all retained in the comparator configuration, are:
    There are no boundary regularity or conformal derivative bounds. The weak constant may be
    infinite. Translation and dilation cannot distinguish a particular center or radius. The
    formal statement quantifies over kernels satisfying the usual holomorphic, Hermitian, L²
-   reproducing properties. The existence and identification of that kernel are also pending
-   analytic milestones, not axioms added to mathlib.
+   reproducing properties. Kernel existence, uniqueness, conformal covariance, and the
+   compact-interior cancellation argument are proved as supporting results.
 
 The unrestricted statement about all simply connected regions is false: the upper half-plane
 also has positive weak constant one. Boundedness is the agreed scope of the formal target.
@@ -87,8 +87,12 @@ It also proves the lower bound one for the explicit complex weighted projections
 operators, and for a domain equipped with its reproducing Bergman kernel and finite positive area.
 The sharp disk upper bound follows from the actual normalized kernel's Poisson supermean
 inequality, decreasing circular truncations, finite differences, and polar integration.
-The weighted radial normalizer's sharp gamma bound and endpoint limit are also proved.
-The remaining weighted operator estimates and disk rigidity are not yet proved.
+The weighted proof now includes the kernel differential inequality, radial normalizer,
+decreasing truncated averages, the sharp upper bound, and admissible annular inputs attaining
+the lower bound. The complex boundary lower bound uses genuine interior concentration and a
+proved boundary-cap asymptotic. The bounded-domain characterization uses genuine conformal
+covariance, uniform cancellation on a compact interior set, an integrable perturbation witness,
+and translation/dilation for the converse.
 
 See [the development status](docs/STATUS.md), [the weighted proof](docs/weighted-estimates.md),
 and [the bounded-domain proof](docs/domain-rigidity.md). The proof notes are mathematical source
@@ -107,9 +111,9 @@ python3 scripts/check-proof-holes.py
 python3 scripts/check-comparator-targets.py
 ```
 
-The Challenge intentionally contains statement holes. Solution currently exports completed
-foundations and three main results, with four main theorems missing. The proof-hole scan is only a source
-check; it cannot establish that a theorem exists or has the intended statement.
+The Challenge intentionally contains statement holes. Solution exports the complete proofs of
+all seven statements. The proof-hole scan is only a source check; the comparator independently
+checks the proof closures and agreement with Challenge.
 
 On Linux, run the actual comparator, including the independent kernels, with:
 
@@ -117,15 +121,16 @@ On Linux, run the actual comparator, including the independent kernels, with:
 ./scripts/verify-comparator.sh
 ```
 
-**This comparison is expected to fail until every selected main theorem is implemented.** Its
-configuration includes all seven targets and permits only `propext`, `Quot.sound`, and
+The configuration includes all seven targets and permits only `propext`, `Quot.sound`, and
 `Classical.choice`. It neither permits `sorryAx` nor replaces mathematical definitions with
 comparison holes. GitHub Actions runs the library build and the main-theorem check separately.
-A supplementary `comparator.completed.json` checks only the three completed declarations against
-the same Challenge and independent kernels. A pass for that subset is not a pass for the full project.
+The historical supplementary configuration `comparator.completed.json` now also contains all
+seven declarations; the canonical full-project configuration remains `comparator.json`.
+The earlier three-result milestone at commit `061dc8796e789fa4c716c994cbadfce716d4e470`
+[passed comparison and all three kernels](https://github.com/CoolRmal/bergman-weak-type/actions/runs/39195499666/job/117877271189).
 
 The official Palomar full-preflight workflow is also installed. Palomar submission remains
-pending proof completion, passing verification of an exact public commit, and its required
+pending verification of an exact public commit and its required
 human review and registration decisions.
 
 ## License

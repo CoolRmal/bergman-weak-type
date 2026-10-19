@@ -1,11 +1,14 @@
 # Formalization status
 
-This is an incomplete formalization. Three of the seven requested main declarations are proved:
+All seven requested main declarations are proved:
 `BergmanWeakType.projection_constant_eq_one`,
-`BergmanWeakType.positiveProjection_constant_eq_one`, and
-`BergmanWeakType.one_le_weightedProjection_constant` for every parameter greater than −1.
-The other four remain unproved. Challenge contains their exact statements; Solution exports
-the completed results and foundations. The full comparator must fail while declarations are absent.
+`BergmanWeakType.positiveProjection_constant_eq_one`,
+`BergmanWeakType.weightedPositiveProjection_constant_eq`,
+`BergmanWeakType.one_le_weightedProjection_constant`,
+`BergmanWeakType.weightedProjection_constant_le` for every parameter greater than −1, and
+`BergmanWeakType.boundaryConstant_le_weightedProjection_constant` for nonnegative parameters, and
+`BergmanWeakType.positive_constant_eq_one_iff_disk` for bounded simply connected domains.
+Challenge specifies their exact statements independently; Solution exports the complete proofs.
 
 ## Completed foundations
 
@@ -35,34 +38,27 @@ the completed results and foundations. The full comparator must fail while decla
 | `Rigidity/AnalyticInverse` | Holomorphic inverses and nonzero derivatives; paired biholomorphic Riemann maps |
 | `Rigidity/ChangeOfVariables` | Complex Jacobian and normalized-area substitution for holomorphic injections |
 | `Rigidity/PolarIntegral` | Disk integration through circle averages, including squared-radius substitution |
+| `Weighted/PolarKernel`, `Weighted/PolarPotential` | Exact polar derivatives and differential inequalities under the source integral |
+| `Weighted/AngularMean`, `Weighted/RadialFlux`, `Weighted/PolarCap`, `Weighted/QuotientCap` | Divergence inequality, smooth truncations, exact truncated-mean monotonicity |
+| `Weighted/NormalizerRadial`, `Weighted/WeightedPotential` | Genuine normalizer ODE and normalized actual weighted potentials |
+| `Weighted/AnnulusMeasure`, `Weighted/RadialKernel`, `Weighted/AnnularSharpness` | Admissible annular inputs attaining the sharp positive weighted lower bound |
+| `Weighted/MassCoordinate`, `Weighted/RadialLevel`, `WeightedSharp` | Weighted mass substitution, distribution estimates, sharp positive constant and complex upper bound |
+| `Rigidity/DiskReproducing`, `Rigidity/KernelTransform` | Actual disk reproduction, kernel existence and uniqueness, conformal covariance |
+| `Rigidity/IntegralPhase`, `Rigidity/PhaseRigidity`, `Rigidity/MobiusGeometry` | Equality in the triangle inequality and the resulting disk or unbounded Möbius geometry |
+| `Rigidity/DomainGap`, `Rigidity/Perturbation` | Uniform cancellation on a compact interior set and an actual integrable perturbation witness |
+| `Boundary/Sharpness` and its dependencies | Genuine interior concentration, boundary-column lower bound, half-disk beta integral, and boundary-cap asymptotic |
+| `Rigidity/DiskSimilarity`, `Rigidity/BoundedRigidity` | Similarity transfer of the sharp disk bound and the full bounded-domain equivalence |
 
-These modules contain no proof holes or custom axioms. The main analytic dependencies below are
-not consequences already obtained from these foundations.
+These modules contain no proof holes or custom axioms.
 
-## Remaining proof chain
+## Verification status
 
-1. Extend the proved disk polar integration to the weighted angular integration API.
-2. Prove that positive supersolutions of a divergence operator with radial coefficients have
-   decreasing circle averages after increasing concave truncation.
-3. Apply the proved finite-difference moving-truncation inequality to the weighted normalization.
-4. Verify the differential identity for the weighted kernel and differentiate under the input
-   integral.
-5. Use the completed positive radial normalizer, sharp bound, and beta/gamma endpoint limit.
-6. Combine these to obtain the sharp positive weighted upper bound.
-7. Prove annular concentration, Fatou passage, and the matching positive lower bound.
-8. Prove the additional boundary-column lower bound for nonnegative parameters. The universal
-   complex lower bound one is already proved by interior concentration, without requiring
-   constant reproduction for the explicit weighted kernel.
-9. The unweighted identities are already proved directly through Poisson supermean inequalities.
-10. Develop the conformal covariance and reproducing-kernel bridges for domains. The complete
-    Riemann mapping theorem and its biholomorphic upgrade are now available locally.
-11. Prove strict cancellation on a fixed interior set, uniformly over the closed parameter disk,
-    and construct the compact-interior perturbation input. Apply `RigidityWitness`.
-12. Prove the disk direction by translation and dilation; complete the exact bounded-domain
-    equivalence in Challenge.
+All proof obligations are discharged locally. Each main theorem's dependency closure was checked
+to use only `propext`, `Classical.choice`, and `Quot.sound`. Full Linux comparator verification of
+the final development and the official Palomar preflight are pending.
 
 See the accompanying proof notes for the actual analytic arguments and parameter restrictions.
-No missing step may be replaced by an extra axiom, a hypothesis asserting the target bound, or a
+No proof step is replaced by an extra axiom, a hypothesis asserting the target bound, or a
 different definition of the Bergman operator.
 
 ## Completion gates
@@ -73,7 +69,10 @@ different definition of the Bergman operator.
 - Metadata must distinguish completed proofs from targets and source-prose arguments.
 - Palomar intake and registration must follow its required concrete human decisions.
 
-At this stage there is no successful main-theorem comparison, Palomar review, or registration.
+The three-result milestone at commit `061dc8796e789fa4c716c994cbadfce716d4e470`
+[passed the comparator and Lean, NanoDa, and con-ron kernels](https://github.com/CoolRmal/bergman-weak-type/actions/runs/39195499666/job/117877271189).
+That earlier commit still lacked four declarations. The final seven-target run is pending.
+There has been no Palomar review or registration.
 
 ## Upstream proof attribution
 

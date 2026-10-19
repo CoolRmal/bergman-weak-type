@@ -58,6 +58,19 @@ theorem smoothCap_le_min_add {ε c x : ℝ} : smoothCap ε c x ≤ min x c + ε 
   · rw [min_eq_right h, abs_of_nonneg (sub_nonneg.mpr h)] at *
     linarith
 
+theorem min_le_smoothCap {ε c x : ℝ} (hε : 0 ≤ ε) : min x c ≤ smoothCap ε c x := by
+  have hsq : Real.sqrt ((x - c) ^ 2 + ε ^ 2) ≤ |x - c| + ε := by
+    apply Real.sqrt_le_iff.mpr
+    constructor
+    · positivity
+    · nlinarith [sq_abs (x - c), mul_nonneg (abs_nonneg (x - c)) hε]
+  dsimp [smoothCap]
+  rcases le_total x c with h | h
+  · rw [min_eq_left h, abs_of_nonpos (sub_nonpos.mpr h)] at *
+    linarith
+  · rw [min_eq_right h, abs_of_nonneg (sub_nonneg.mpr h)] at *
+    linarith
+
 theorem smoothCapLevelDeriv_mem_Icc {ε c x : ℝ} (hε : 0 < ε) :
     smoothCapLevelDeriv ε c x ∈ Set.Icc (0 : ℝ) 1 := by
   have hp : 0 < Real.sqrt ((x - c) ^ 2 + ε ^ 2) :=
