@@ -42,6 +42,9 @@ theorem exists_disk_of_domainPositiveProjection_constant_eq_one {Ω : Set ℂ}
   rw [hc] at hlt
   exact (lt_irrefl 1) hlt
 
+-- Keep the public statement's topology, bornology, and metric instances identical to the
+-- independently elaborated Challenge statement, which imports no C*-algebra instances.
+attribute [-instance] instCommCStarAlgebraComplex in
 /-- Among bounded simply connected domains, positive weak constant one characterizes disks. -/
 theorem positive_constant_eq_one_iff_disk (Ω : Set ℂ) (hopen : IsOpen Ω)
     (hbounded : Bornology.IsBounded Ω) (hconnected : IsSimplyConnected Ω)
