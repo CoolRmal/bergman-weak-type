@@ -31,25 +31,29 @@ related_formalizations:
 
 sources:
   - title: Research notes on sharp and weighted Bergman weak type estimates
-    type: original-proof
-    relationship: other
+    type: other
+    relationship: formalizes
     authors: [Yongxi Lin]
     location: docs/weighted-estimates.md
     note: >-
-      Unpublished research supplied with the project, summarized in the cited file.
-      This records the supplied proof program, not a claim of mathematical novelty
-      or independent validation. All seven main targets are proved in Lean.
+      The Lean development formalizes earlier unpublished research proofs supplied
+      by the project owner, including the 16 October 2026 weighted notes and the
+      separate boundary-column argument identified in docs/weighted-estimates.md.
+      Those proofs preceded this Lean project. This project provides their
+      machine-checked formalization; publication priority and mathematical novelty
+      are not claimed.
   - title: Domain rigidity questions for the positive Bergman operator
     type: other
-    relationship: other
+    relationship: formalizes
     authors: [Yongxi Lin]
     location: docs/domain-rigidity.md
     note: >-
-      The domain target uses the corrected bounded simply connected scope and
-      characterizes arbitrary Euclidean disks. Its kernel is specified by the
-      usual holomorphic, square-integrability, symmetry, and reproducing
-      properties. Existence, identification, and the full bounded-domain rigidity
-      proof are formalized.
+      The Lean development formalizes the earlier derivative-free rigidity argument
+      recorded in the research discussion "Prove Bergman kernel minimum bound" on
+      16 October 2026 and summarized in docs/domain-rigidity.md. The formal theorem
+      is its bounded simply connected specialization, with no boundary regularity
+      assumption. The earlier mathematical argument and this subsequent Lean
+      formalization are distinct.
 
 status:
   proof_status: complete
@@ -59,10 +63,10 @@ status:
     proved. The weight range is alpha greater than -1; the additional complex
     boundary lower bound is proved for alpha at least zero. The domain theorem is restricted
     to bounded simply connected open regions, with an actual reproducing Bergman
-    kernel and no boundary regularity assumption. The earlier three-result subset passed
-    the comparator and independent kernels at commit 061dc8796e789fa4c716c994cbadfce716d4e470.
-    No successful full comparator, Palomar mechanical preflight, editorial review,
-    or registration is claimed.
+    kernel and no boundary regularity assumption. All seven targets passed the
+    comparator and independent kernels, the official full Palomar preflight, and
+    Palomar's intake verification at commit 4a142be3fc710880a6d7dd10d3f6e70c681b97d0.
+    See docs/STATUS.md for the public verification evidence. Registration is not claimed.
   sorry_count: 0
   sorry_in_definitions: 0
   axioms: []
@@ -105,6 +109,6 @@ review:
   status: agent-reviewed
   notes: >-
     Initial source and statement audits led to the bounded simply connected scope
-    for the domain characterization. Three main results passed comparator verification
-    at the earlier public milestone. No independent mathematical peer review,
-    full-project verification, or Palomar review is claimed.
+    for the domain characterization. All seven main results passed the comparator
+    and independent kernel checks at commit 4a142be3fc710880a6d7dd10d3f6e70c681b97d0.
+    No independent mathematical peer review is claimed.

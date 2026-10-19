@@ -54,8 +54,13 @@ These modules contain no proof holes or custom axioms.
 ## Verification status
 
 All proof obligations are discharged locally. Each main theorem's dependency closure was checked
-to use only `propext`, `Classical.choice`, and `Quot.sound`. Full Linux comparator verification of
-the final development and the official Palomar preflight are pending.
+to use only `propext`, `Classical.choice`, and `Quot.sound`. All seven targets at commit
+`4a142be3fc710880a6d7dd10d3f6e70c681b97d0` passed
+[Linux comparator verification](https://github.com/CoolRmal/bergman-weak-type/actions/runs/39197543176),
+the [official full Palomar preflight](https://github.com/CoolRmal/bergman-weak-type/actions/runs/39211800165),
+and [Palomar's intake verification](https://github.com/PalomarRegistry/PalomarSubmission/actions/runs/39212909137).
+Lean, NanoDa, and con-ron accepted all seven targets. Both Palomar mechanical reports have
+status `pass`, with no errors or warnings.
 
 See the accompanying proof notes for the actual analytic arguments and parameter restrictions.
 No proof step is replaced by an extra axiom, a hypothesis asserting the target bound, or a
@@ -71,8 +76,8 @@ different definition of the Bergman operator.
 
 The three-result milestone at commit `061dc8796e789fa4c716c994cbadfce716d4e470`
 [passed the comparator and Lean, NanoDa, and con-ron kernels](https://github.com/CoolRmal/bergman-weak-type/actions/runs/39195499666/job/117877271189).
-That earlier commit still lacked four declarations. The final seven-target run is pending.
-There has been no Palomar review or registration.
+That earlier commit still lacked four declarations; the complete seven-target development
+has since passed the checks linked above. Palomar registration is not claimed here.
 
 ## Upstream proof attribution
 

@@ -126,12 +126,13 @@ The configuration includes all seven targets and permits only `propext`, `Quot.s
 comparison holes. GitHub Actions runs the library build and the main-theorem check separately.
 The historical supplementary configuration `comparator.completed.json` now also contains all
 seven declarations; the canonical full-project configuration remains `comparator.json`.
-The earlier three-result milestone at commit `061dc8796e789fa4c716c994cbadfce716d4e470`
-[passed comparison and all three kernels](https://github.com/CoolRmal/bergman-weak-type/actions/runs/39195499666/job/117877271189).
-
-The official Palomar full-preflight workflow is also installed. Palomar submission remains
-pending verification of an exact public commit and its required
-human review and registration decisions.
+All seven targets at commit `4a142be3fc710880a6d7dd10d3f6e70c681b97d0`
+[passed comparison and all three kernels](https://github.com/CoolRmal/bergman-weak-type/actions/runs/39197543176).
+The same commit passed the
+[official full Palomar preflight](https://github.com/CoolRmal/bergman-weak-type/actions/runs/39211800165)
+and [Palomar's intake verification](https://github.com/PalomarRegistry/PalomarSubmission/actions/runs/39212909137),
+with no errors or warnings in either mechanical report. These checks establish proof
+verification; Palomar registration is a separate process and is not claimed here.
 
 ## License
 
