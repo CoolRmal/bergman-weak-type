@@ -35,9 +35,17 @@ jobs:
         run: lake build BergmanWeakType
 
   comparator:
-    name: Verify all advertised main theorems
+    name: Compare ${{ matrix.scope }}
     runs-on: ubuntu-24.04
     timeout-minutes: 60
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - scope: all seven advertised theorems
+            config: comparator.json
+          - scope: the three completed theorems
+            config: comparator.completed.json
     steps:
       - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1
         with:
@@ -58,4 +66,4 @@ jobs:
       - name: Compare the actual Challenge and Solution
         # This must fail while any advertised main proof is absent or uses a
         # forbidden axiom. A development build is not proof completion.
-        run: ./scripts/verify-comparator.sh
+        run: ./scripts/verify-comparator.sh '${{ matrix.config }}'

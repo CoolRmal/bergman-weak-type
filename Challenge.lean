@@ -18,7 +18,8 @@ public import Mathlib.MeasureTheory.Function.LpSeminorm.Basic
 
 This standalone statement surface imports only mathlib. Its theorem holes are intentional.
 The comparison must check the same declarations in Solution, with only standard Lean axioms.
-All seven statements below are currently proof targets, not completed formalizations.
+Both sharp disk constants and the universal complex weighted lower bound are proved in Solution.
+The other four statements below remain proof targets.
 -/
 
 @[expose] public section

@@ -11,6 +11,12 @@ set -euo pipefail
 # later.
 repository_root=$(cd "$(dirname "$0")/.." && pwd)
 cd "$repository_root"
+source_config=${1:-comparator.json}
+
+if [ "$source_config" != comparator.json ]; then
+  echo "Running a supplementary comparison from $source_config."
+  echo "This does not certify all seven targets in comparator.json."
+fi
 
 python3 scripts/check-comparator-targets.py
 python3 scripts/check-proof-holes.py
@@ -37,7 +43,7 @@ done
 # generated copy does the same, so the local check judges as the registry does.
 config=$(mktemp "${TMPDIR:-/tmp}/palomar-comparator.XXXXXX")
 trap 'rm -f "$config"' EXIT
-python3 - comparator.json "$config" "$prefix" <<'PY'
+python3 - "$source_config" "$config" "$prefix" <<'PY'
 import json
 import pathlib
 import sys

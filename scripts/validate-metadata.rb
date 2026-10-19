@@ -48,9 +48,10 @@ abort "status.proof_status must be explicit" unless %w[in_progress complete].inc
 %w[sorry_count sorry_in_definitions].each do |key|
   abort "status.#{key} must be a nonnegative integer" unless status[key].is_a?(Integer) && status[key] >= 0
 end
-if status["proof_status"] == "in_progress" && !status.fetch("completed_main_results", []).empty?
-  abort "update the in-progress scope before claiming any completed main results"
-end
+completed = status.fetch("completed_main_results", [])
+abort "completed_main_results must be a list" unless completed.is_a?(Array)
+abort "completed_main_results must not contain duplicates" unless completed.uniq == completed
+abort "in-progress status requires an explicit scope" if status["scope"].to_s.strip.empty?
 abort "automation.methods must be nonempty" if data.fetch("automation").fetch("methods").empty?
 abort "review.status must be nonempty" if data.fetch("review").fetch("status").strip.empty?
 puts "Metadata is structurally consistent; proof status: #{status['proof_status']}."

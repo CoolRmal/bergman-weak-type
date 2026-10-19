@@ -9,7 +9,7 @@ public import BergmanWeakType
 
 /-! # Completed proof development
 
-The seven main declarations listed in comparator.json are not implemented yet.
-This module deliberately exports only completed foundational results.
-The comparator must reject the missing main declarations; this is not a completed submission.
+The sharp disk constants and `one_le_weightedProjection_constant` are implemented.
+The other four declarations listed in comparator.json are not implemented yet.
+The comparator must reject the missing declarations; this is not a completed submission.
 -/

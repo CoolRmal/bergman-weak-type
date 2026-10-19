@@ -10,7 +10,8 @@ project:
     and upper and lower weighted bounds for the complex projection. A further
     target characterizes Euclidean disks among bounded simply connected open
     regions using their reproducing Bergman kernels, without boundary regularity
-    assumptions. None of these main results has yet been proved in this repository.
+    assumptions. Both sharp disk constants and the universal complex weighted
+    lower bound one are proved; the other four main comparison targets remain unproved.
   authors: [Yongxi Lin]
   responsible_maintainers: [Yongxi Lin]
   license: Apache-2.0
@@ -43,8 +44,10 @@ sources:
 status:
   proof_status: in_progress
   scope: >-
-    Definitions and supporting lemmas are under development. All seven advertised
-    comparison targets remain unproved. The intended weight
+    Both sharp disk constants and the universal complex weighted lower bound one are
+    proved, the latter for every alpha greater than -1 using interior concentration.
+    Four of the seven advertised comparison
+    targets remain unproved. The intended weight
     range is alpha greater than -1; the additional complex boundary lower bound
     is intended for alpha at least zero. The domain characterization is restricted
     to bounded simply connected open regions, with an actual reproducing Bergman
@@ -53,7 +56,10 @@ status:
   sorry_count: 0
   sorry_in_definitions: 0
   axioms: []
-  completed_main_results: []
+  completed_main_results:
+    - BergmanWeakType.projection_constant_eq_one
+    - BergmanWeakType.positiveProjection_constant_eq_one
+    - BergmanWeakType.one_le_weightedProjection_constant
   note: >-
     These proof-hole counts exclude the deliberate statement holes in
     Challenge.lean. Zero holes in the supporting development does not mean the
@@ -76,8 +82,9 @@ automation:
 
 fidelity:
   divergences: >-
-    This is an incomplete formalization. The main sharp and weighted claims and
-    the bounded-domain characterization remain unproved. The domain conclusion
+    This is an incomplete formalization. Apart from the universal complex weighted
+    lower bound one, the sharp and weighted claims and the bounded-domain
+    characterization remain unproved. The domain conclusion
     concerns arbitrary Euclidean disks, accounting for translation and scaling.
 
 review:

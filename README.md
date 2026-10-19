@@ -2,8 +2,10 @@
 
 A Lean 4 project, dependent on mathlib, for sharp weak type estimates of Bergman projections.
 
-**Work in progress. The main theorems are stated but not proved. The project has not passed the
-comparator and is not registered on Palomar.** The checked library contains foundational results;
+**Work in progress. Three of the seven main statements are proved: both sharp disk constants
+and the universal complex weighted lower bound one. The other four remain unproved. The project
+has not passed the full comparator and is
+not registered on Palomar.** The checked library also contains foundational results;
 a successful library build is not completion of the statements in `Challenge.lean`.
 
 ## Mathematical targets
@@ -28,7 +30,7 @@ $$
 The complex power uses the analytic branch normalized at zero. The positive operator is defined
 as an extended nonnegative integral; its finiteness for integrable inputs at interior points is
 proved. The optimal weak constant is the infimum of all constants in the strict-superlevel
-inequality
+inequality (with the nonnegative output itself for the positive operator)
 
 $$
 \lambda A_\alpha\{|Tf|>\lambda\}
@@ -81,8 +83,12 @@ The library defines the actual integral kernels, measures, operators, weak type 
 optimal constants. Completed lemmas include disk and weighted-area normalization, kernel nonvanishing,
 pointwise complex-to-positive domination, kernel integrability and positive-output finiteness,
 the parameter-zero specializations, weak-constant comparison, and test-function lower bounds.
-It also proves the lower bound one for a domain equipped with its reproducing Bergman kernel and
-finite positive area. These results do not prove the sharp upper estimates or disk rigidity.
+It also proves the lower bound one for the explicit complex weighted projections, for both disk
+operators, and for a domain equipped with its reproducing Bergman kernel and finite positive area.
+The sharp disk upper bound follows from the actual normalized kernel's Poisson supermean
+inequality, decreasing circular truncations, finite differences, and polar integration.
+The weighted radial normalizer's sharp gamma bound and endpoint limit are also proved.
+The remaining weighted operator estimates and disk rigidity are not yet proved.
 
 See [the development status](docs/STATUS.md), [the weighted proof](docs/weighted-estimates.md),
 and [the bounded-domain proof](docs/domain-rigidity.md). The proof notes are mathematical source
@@ -102,7 +108,7 @@ python3 scripts/check-comparator-targets.py
 ```
 
 The Challenge intentionally contains statement holes. Solution currently exports completed
-foundations and does not supply the missing main theorems. The proof-hole scan is only a source
+foundations and three main results, with four main theorems missing. The proof-hole scan is only a source
 check; it cannot establish that a theorem exists or has the intended statement.
 
 On Linux, run the actual comparator, including the independent kernels, with:
@@ -115,6 +121,8 @@ On Linux, run the actual comparator, including the independent kernels, with:
 configuration includes all seven targets and permits only `propext`, `Quot.sound`, and
 `Classical.choice`. It neither permits `sorryAx` nor replaces mathematical definitions with
 comparison holes. GitHub Actions runs the library build and the main-theorem check separately.
+A supplementary `comparator.completed.json` checks only the three completed declarations against
+the same Challenge and independent kernels. A pass for that subset is not a pass for the full project.
 
 The official Palomar full-preflight workflow is also installed. Palomar submission remains
 pending proof completion, passing verification of an exact public commit, and its required

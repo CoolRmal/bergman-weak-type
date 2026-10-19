@@ -10,3 +10,14 @@ public import BergmanWeakType.WeakType
 public import BergmanWeakType.RigidityWitness
 public import BergmanWeakType.Comparison
 public import BergmanWeakType.CompactGap
+public import BergmanWeakType.Reproduction
+public import BergmanWeakType.DiskSharp
+public import BergmanWeakType.Weighted.MovingCap
+public import BergmanWeakType.Weighted.SmoothCap
+public import BergmanWeakType.Weighted.PoissonCap
+public import BergmanWeakType.Weighted.KernelPDE
+public import BergmanWeakType.Weighted.CompactIntegral
+public import BergmanWeakType.Weighted.BetaIntegral
+public import BergmanWeakType.Weighted.NormalizerEndpoint
+public import BergmanWeakType.Rigidity.AnalyticInverse
+public import BergmanWeakType.Rigidity.ChangeOfVariables
