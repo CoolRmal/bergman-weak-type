@@ -1,0 +1,88 @@
+# yaml-language-server: $schema=https://raw.githubusercontent.com/mathlib-initiative/formalization.yaml/main/schema/formalization.schema.json
+version: v0.4
+
+project:
+  name: Bergman projection weak type constants
+  description: >-
+    An in-progress Lean development of weak type (1,1) constants for the Bergman
+    projection and its positive-kernel counterpart on the unit disk. The planned
+    results are the sharp unweighted constants, weighted positive-kernel constants,
+    and upper and lower weighted bounds for the complex projection. A further
+    target characterizes Euclidean disks among bounded simply connected open
+    regions using their reproducing Bergman kernels, without boundary regularity
+    assumptions. None of these main results has yet been proved in this repository.
+  authors: [Yongxi Lin]
+  responsible_maintainers: [Yongxi Lin]
+  license: Apache-2.0
+
+classification:
+  arxiv: [math.CV, math.FA]
+  msc2020: [30H20, 42B35, 47B38]
+
+sources:
+  - title: Research notes on sharp and weighted Bergman weak type estimates
+    type: original-proof
+    relationship: other
+    authors: [Yongxi Lin]
+    location: docs/weighted-estimates.md
+    note: >-
+      Unpublished research supplied with the project, summarized in the cited file.
+      This records the supplied proof program, not a claim of mathematical novelty
+      or independent validation. Its principal claims are not yet proved in Lean.
+  - title: Domain rigidity questions for the positive Bergman operator
+    type: other
+    relationship: other
+    authors: [Yongxi Lin]
+    location: docs/domain-rigidity.md
+    note: >-
+      The domain target uses the corrected bounded simply connected scope and
+      characterizes arbitrary Euclidean disks. Its kernel is specified by the
+      usual holomorphic, square-integrability, symmetry, and reproducing
+      properties. No rigidity proof is claimed.
+
+status:
+  proof_status: in_progress
+  scope: >-
+    Definitions and supporting lemmas are under development. All seven advertised
+    comparison targets remain unproved. The intended weight
+    range is alpha greater than -1; the additional complex boundary lower bound
+    is intended for alpha at least zero. The domain characterization is restricted
+    to bounded simply connected open regions, with an actual reproducing Bergman
+    kernel and no boundary regularity assumption. No successful comparator run, complete Palomar mechanical
+    preflight, editorial review, or registration is claimed.
+  sorry_count: 0
+  sorry_in_definitions: 0
+  axioms: []
+  completed_main_results: []
+  note: >-
+    These proof-hole counts exclude the deliberate statement holes in
+    Challenge.lean. Zero holes in the supporting development does not mean the
+    absent main proofs have been completed. The axiom list records custom axioms;
+    ordinary Lean axioms permitted by comparator.json are listed there.
+
+automation:
+  methods:
+    - method: agent
+      framework: OpenAI Codex
+      tool_setup: >-
+        AI-assisted statement auditing, Lean development, mathematical source
+        analysis, and verification setup, with parallel agent subtasks.
+      prompting_notes: >-
+        Formalize the specified Bergman results using genuine operator definitions
+        and preserve all unresolved mathematical and formal proof obligations.
+  notes: >-
+    Automated contributions are recorded here. Human responsibility remains with
+    the named author and maintainer. Model-specific usage and cost are not tracked.
+
+fidelity:
+  divergences: >-
+    This is an incomplete formalization. The main sharp and weighted claims and
+    the bounded-domain characterization remain unproved. The domain conclusion
+    concerns arbitrary Euclidean disks, accounting for translation and scaling.
+
+review:
+  status: agent-reviewed
+  notes: >-
+    Initial source and statement audits led to the bounded simply connected scope
+    for the domain characterization. No independent mathematical peer review, completed
+    main-theorem verification, or Palomar review is claimed.

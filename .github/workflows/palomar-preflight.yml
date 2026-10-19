@@ -1,0 +1,34 @@
+name: Complete Palomar mechanical preflight
+
+# A passing run is advisory mechanical evidence, not intake or registration.
+# Dispatch only once the advertised results have complete proofs.
+on:
+  workflow_dispatch:
+    inputs:
+      commit:
+        description: Full public commit SHA; blank checks this workflow revision
+        required: false
+        type: string
+      authorization_relationship:
+        description: The human submitter's relationship to this formalization
+        required: true
+        type: choice
+        options:
+          - I am a responsible author or maintainer
+          - I have approval from a responsible author or maintainer
+
+permissions:
+  contents: read
+
+jobs:
+  mechanical-preflight:
+    uses: PalomarRegistry/PalomarSubmission/.github/workflows/submission.yml@d4e41c1d5b0d114c4859e6e5831dc6d3ad1d0d44
+    with:
+      repository: ${{ github.repository }}
+      commit: ${{ inputs.commit || github.sha }}
+      pipeline_commit: d4e41c1d5b0d114c4859e6e5831dc6d3ad1d0d44
+      request_id: bergmancheck
+      mode: full
+      execution_profile: palomar-standard-v1
+      options: >-
+        {"comparator_config_path":"comparator.json","authorization_relationship":${{ toJSON(inputs.authorization_relationship) }}}

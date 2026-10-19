@@ -1,0 +1,18 @@
+{
+  "challenge_module": "Challenge",
+  "solution_module": "Solution",
+  "theorem_names": [
+    "BergmanWeakType.projection_constant_eq_one",
+    "BergmanWeakType.positiveProjection_constant_eq_one",
+    "BergmanWeakType.weightedPositiveProjection_constant_eq",
+    "BergmanWeakType.one_le_weightedProjection_constant",
+    "BergmanWeakType.weightedProjection_constant_le",
+    "BergmanWeakType.boundaryConstant_le_weightedProjection_constant",
+    "BergmanWeakType.positive_constant_eq_one_iff_disk"
+  ],
+  "permitted_axioms": [
+    "propext",
+    "Quot.sound",
+    "Classical.choice"
+  ]
+}
